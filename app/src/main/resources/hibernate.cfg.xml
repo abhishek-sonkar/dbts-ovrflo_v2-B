@@ -11,6 +11,6 @@
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="hbm2ddl.auto">update</property>
 		<property name="show_sql">true</property>
-		<mapping class="com.doubtsoverflow.theapp.User"/>
+		<mapping class="com.doubtsoverflow.app.Model.User"/>
 	</session-factory>
 </hibernate-configuration>	

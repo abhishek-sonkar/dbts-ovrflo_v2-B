@@ -1,7 +1,10 @@
 package com.doubtsoverflow.app.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.doubtsoverflow.app.exception.ResourceNotFoundException;
 import com.doubtsoverflow.app.model.Question;
 import com.doubtsoverflow.app.repository.QuestionRepository;
 import com.doubtsoverflow.app.service.QuestionService;
@@ -20,4 +23,16 @@ public class QuestionServiceImpl implements QuestionService {
 	public Question saveQuestion(Question question) {
 		return questionRepository.save(question);
 	}
+
+	@Override
+	public List<Question> getAllQuestions() {
+		return questionRepository.findAll();
+	}
+
+	@Override
+	public Question findQuestionById(int id) {
+		return questionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee", "Id", id));
+	}
 }
+
+	

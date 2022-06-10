@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.doubtsoverflow.app.model.Answer;
 import com.doubtsoverflow.app.model.Question;
 import com.doubtsoverflow.app.service.QuestionService;
 
@@ -37,5 +39,11 @@ public class QuestionHandler {
 	@GetMapping("/getById/{id}")
 	public ResponseEntity<Question> getQuestionByID(@PathVariable("id") int quesId) {
 		return new ResponseEntity<Question>(questionService.findQuestionById(quesId), HttpStatus.OK);
+	}
+	
+	//update answer
+	@PutMapping("/solveQuestion/{id}")
+	public ResponseEntity<Question> updateQuestion(@PathVariable("id") int quesId, @RequestBody Answer answer) {
+		return new ResponseEntity<Question>(questionService.updateQuestion(answer, quesId), HttpStatus.OK);
 	}
 }

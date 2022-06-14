@@ -1,5 +1,9 @@
 package com.doubtsoverflow.app.service.impl;
 
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.doubtsoverflow.app.model.User;
@@ -17,7 +21,23 @@ public class UserServiceImpl implements UserService{   //no need to add @transac
 	}
 
 	@Override
-	public User saveUser(User user) {
-		return userRepository.save(user);
+	public ResponseEntity<String> saveUser(User user) {
+		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+		if(existingUser.isEmpty()) {
+			userRepository.save(user);
+			return new ResponseEntity<>("{\"success\": \"SignedUp Successfully\"}", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("{\"err\": \"User already exists\"}", HttpStatus.CONFLICT);
+		}
+	}
+
+	@Override
+	public ResponseEntity<Object> getUser(User user) {
+		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
+		if(!existingUser.isEmpty()) {
+			return new ResponseEntity<>(existingUser.get(), HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<>("{\"err\": \"User does not exists\"}", HttpStatus.NOT_FOUND);
+		}
 	}
 }

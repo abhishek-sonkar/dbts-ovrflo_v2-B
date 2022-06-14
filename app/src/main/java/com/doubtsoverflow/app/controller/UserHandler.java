@@ -1,8 +1,9 @@
 package com.doubtsoverflow.app.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +13,19 @@ import com.doubtsoverflow.app.model.User;
 import com.doubtsoverflow.app.service.UserService;
 
 @RestController
-@RequestMapping("/addUser")
+@RequestMapping("/user")
 public class UserHandler {
 	
 	@Autowired	
 	private UserService userService;
 	
-	@PostMapping
-	public ResponseEntity<User> saveUser(@RequestBody User user) {
-		return new ResponseEntity<User>(userService.saveUser(user), HttpStatus.CREATED);
+	@PostMapping("/signup")
+	public ResponseEntity<String> saveUser(@RequestBody User user) {
+		return userService.saveUser(user);
+	}
+	
+	@GetMapping("/login")
+	public ResponseEntity<Object> getUser(@RequestBody User user) {
+		return userService.getUser(user);
 	}
 }

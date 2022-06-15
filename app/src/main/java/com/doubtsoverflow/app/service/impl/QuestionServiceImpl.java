@@ -1,5 +1,7 @@
 package com.doubtsoverflow.app.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public Question saveQuestion(Question question) {
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		question.setPostedOnDate(formatter.format(date));
 		return questionRepository.save(question);
 	}
 
@@ -40,7 +45,9 @@ public class QuestionServiceImpl implements QuestionService {
 		
 		Question existingQuestion = questionRepository.findById(id).orElseThrow(
 				() -> new ResourceNotFoundException("Question", "id", id));
-		
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		answer.setAnsweredOnDate(formatter.format(date));
 		existingQuestion.getAnswers().add(answer);
 		questionRepository.save(existingQuestion);
 		return existingQuestion;

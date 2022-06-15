@@ -44,6 +44,6 @@ public class QuestionHandler {
 	//update answer
 	@PutMapping("/solveQuestion/{id}")
 	public ResponseEntity<Question> updateQuestion(@PathVariable("id") int quesId, @RequestBody Answer answer) {
-		return new ResponseEntity<Question>(questionService.updateQuestion(answer, quesId), HttpStatus.OK);
+		return new ResponseEntity<Question>(questionService.updateQuestion(answer, quesId), HttpStatus.CREATED);
 	}
 }

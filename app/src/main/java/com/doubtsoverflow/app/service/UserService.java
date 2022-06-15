@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import com.doubtsoverflow.app.model.User;
 
 public interface UserService {
-	ResponseEntity<String> saveUser(User user);
+	ResponseEntity<String> signUser(User user);
 	
-	ResponseEntity<Object> getUser(User user);
+	ResponseEntity<Object> logUser(User user);
 }

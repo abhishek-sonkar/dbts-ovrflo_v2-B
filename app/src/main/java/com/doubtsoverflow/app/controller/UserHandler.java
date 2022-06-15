@@ -21,11 +21,11 @@ public class UserHandler {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
-		return userService.saveUser(user);
+		return userService.signUser(user);
 	}
 	
 	@GetMapping("/login")
 	public ResponseEntity<Object> getUser(@RequestBody User user) {
-		return userService.getUser(user);
+		return userService.logUser(user);
 	}
 }

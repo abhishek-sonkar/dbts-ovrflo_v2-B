@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.doubtsoverflow.app.model.User;
@@ -21,9 +22,11 @@ public class UserServiceImpl implements UserService{   //no need to add @transac
 	}
 
 	@Override
-	public ResponseEntity<String> saveUser(User user) {
+	public ResponseEntity<String> signUser(User user) {
 		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
 		if(existingUser.isEmpty()) {
+			String hashedPwd = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(10));
+			user.setPassword(hashedPwd);
 			userRepository.save(user);
 			return new ResponseEntity<>("{\"success\": \"SignedUp Successfully\"}", HttpStatus.CREATED);
 		} else {
@@ -32,12 +35,18 @@ public class UserServiceImpl implements UserService{   //no need to add @transac
 	}
 
 	@Override
-	public ResponseEntity<Object> getUser(User user) {
+	public ResponseEntity<Object> logUser(User user) {
 		Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
-		if(!existingUser.isEmpty()) {
-			return new ResponseEntity<>(existingUser.get(), HttpStatus.FOUND);
-		} else {
+		if(existingUser.isEmpty()) {
 			return new ResponseEntity<>("{\"err\": \"User does not exists\"}", HttpStatus.NOT_FOUND);
+		} else {
+			String hashedPwd = existingUser.get().getPassword();
+			if(BCrypt.checkpw(user.getPassword(), hashedPwd)) {
+				return new ResponseEntity<>(existingUser.get(), HttpStatus.FOUND);
+			} else {
+				return new ResponseEntity<>("{\"err\": \"Password Incorrect\"}", HttpStatus.UNAUTHORIZED);
+			}
+			
 		}
 	}
 }

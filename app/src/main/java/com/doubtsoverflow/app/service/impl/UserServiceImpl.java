@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{   //no need to add @transac
 					String token = authenticate(existingUser.get().getEmail(), existingUser.get().getPassword());
 					logger.info("LoggedIn Successfully");
 					return new ResponseEntity<>(
-							new LogResponse(true, userName, token, "LoggedIn Successfully"), HttpStatus.FOUND);
+							new LogResponse(true, userName, token, "LoggedIn Successfully"), HttpStatus.ACCEPTED);
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}

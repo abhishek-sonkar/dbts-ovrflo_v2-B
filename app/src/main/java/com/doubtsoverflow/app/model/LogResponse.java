@@ -11,5 +11,5 @@ public class LogResponse {
 	private boolean success;
 	private String username;
 	private String token;
-	private String msg;
+	private String message;
 }

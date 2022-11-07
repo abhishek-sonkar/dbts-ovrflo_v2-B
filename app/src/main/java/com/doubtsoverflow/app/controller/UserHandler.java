@@ -24,7 +24,7 @@ public class UserHandler {
 		return userService.signUser(user);
 	}
 	
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public ResponseEntity<Object> getUser(@RequestBody User user) {
 		return userService.logUser(user);
 	}

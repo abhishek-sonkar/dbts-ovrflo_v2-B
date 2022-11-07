@@ -50,10 +50,10 @@ public class UserServiceImpl implements UserService{   //no need to add @transac
 			user.setPassword(hashedPwd);
 			userRepository.save(user);
 			logger.info("SignedUp Successfully");
-			return new ResponseEntity<>("{\"success\": \"SignedUp Successfully\"}", HttpStatus.CREATED);
+			return new ResponseEntity<>("{\"message\": \"SignedUp Successfully\"}", HttpStatus.CREATED);
 		} else {
 			logger.error("User already exists");
-			return new ResponseEntity<>("{\"err\": \"User already exists\"}", HttpStatus.CONFLICT);
+			return new ResponseEntity<>("{\"message\": \"User already exists\"}", HttpStatus.CONFLICT);
 		}
 	}
 

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,6 +26,7 @@ public class Question {
 	@Column(name = "title", nullable = false)
 	private String title;
 	
+	@Lob
 	@Column(name = "question_body", nullable = false)
 	private String quesBody;
 	

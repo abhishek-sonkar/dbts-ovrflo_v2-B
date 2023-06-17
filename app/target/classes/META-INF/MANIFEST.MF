@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk-Spec: 18
-Implementation-Title: app
-Implementation-Version: 0.0.1-SNAPSHOT
-Main-Class: com.doubtsoverflow.app.AppApplication
-Created-By: Maven Integration for Eclipse
-
